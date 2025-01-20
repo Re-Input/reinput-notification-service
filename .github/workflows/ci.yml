@@ -1,0 +1,14 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  ci:
+    uses: Re-Input/reinput-shared-workflows/.github/workflows/reusable-ci.yml@main
+    with:
+      image-name: reinput/notification-service
+    secrets:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }} 
