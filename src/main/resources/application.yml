@@ -1,16 +1,28 @@
-server:
-  port: 8083
 
 spring:
+  profiles:
+    active: local
   application:
     name: reinput-notification-service
 
+server:
+  port: 8083
+
 eureka:
   client:
-    register-with-eureka: true
-    fetch-registry: true
     service-url:
       defaultZone: http://localhost:8761/eureka/
+    register-with-eureka: true
+    fetch-registry: true
   instance:
-    prefer-ip-address: true    
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+    prefer-ip-address: true
+
+# springdoc:
+#   swagger-ui:
+#     path: /swagger-ui.html
+#     config-url: /folder/v3/api-docs/swagger-config
+#     url: /folder/v3/api-docs
+#     disable-swagger-default-url: true
+#   api-docs:
+#     path: /v3/api-docs
