@@ -15,3 +15,12 @@ spring:
       hibernate:
         format_sql: true
     database-platform: org.hibernate.dialect.MySQLDialect
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    config-url: /notification/v3/api-docs/swagger-config
+    url: /notification/v3/api-docs
+    disable-swagger-default-url: true
+  api-docs:
+    path: /v3/api-docs

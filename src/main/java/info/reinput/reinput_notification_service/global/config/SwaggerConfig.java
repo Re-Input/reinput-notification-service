@@ -1,4 +1,4 @@
-package info.reinput.reinput_notification_service.global.config;
+package info.reinput.reinput_notification_service.global.config;    
 
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
@@ -58,7 +58,7 @@ public class SwaggerConfig {
                 .title("Reinput Notification Service")
                 .version("v0.0.1")
                 .description("""
-                        Reinput Notification Service
+                        Reinput Notification Service (reminder service)
                         """);
     }
 }
