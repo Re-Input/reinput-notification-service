@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.List;
+import java.util.Arrays;
 
 @Configuration
 public class SwaggerConfig {
@@ -20,6 +21,16 @@ public class SwaggerConfig {
         return GroupedOpenApi.builder()
                 .group("public")
                 .pathsToMatch("/**")
+                .addOpenApiCustomizer(openApi -> {
+                    openApi.getServers().forEach(server -> {
+                        server.addExtension("x-explorer-urls", Arrays.asList(
+                            "/member/v3/api-docs",
+                            "/insight/v3/api-docs",
+                            "/reminder/v3/api-docs",
+                            "/folder/v3/api-docs"
+                        ));
+                    });
+                })
                 .build();
     }
 
@@ -49,7 +60,7 @@ public class SwaggerConfig {
     private List<Server> createServers() {
         return List.of(
                 new Server().url("").description("Direct"),
-                new Server().url("/notification").description("Gateway")
+                new Server().url("/reminder").description("Gateway")
         );
     }
 
