@@ -23,15 +23,11 @@ public class ReminderSchedule {
     @Enumerated(EnumType.STRING)
     private ReminderType reminderType;
 
-    private LocalDateTime updatedAt;
+    @Column(name = "created_at", updatable = false)
+    private LocalDateTime createdAt;
 
     @PrePersist
     protected void onCreate() {
-        updatedAt = LocalDateTime.now();
-    }
-
-    @PreUpdate
-    protected void onUpdate() {
-        updatedAt = LocalDateTime.now();
+        createdAt = LocalDateTime.now();
     }
 } 
