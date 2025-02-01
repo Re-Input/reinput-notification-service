@@ -2,7 +2,7 @@
 FROM gradle:8.5-jdk17 AS builder
 WORKDIR /app
 COPY . .
-RUN gradle build -x test
+RUN gradle build --continue
 
 # Run stage
 FROM amazoncorretto:17-alpine3.20

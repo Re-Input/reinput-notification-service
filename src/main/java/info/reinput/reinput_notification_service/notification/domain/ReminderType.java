@@ -5,15 +5,15 @@ import lombok.Getter;
 @Getter
 public enum ReminderType {
     // Monthly types (매월 1일 ~ 31일)
-    Monthly_01("0 0 0 1 * ?"),
-    Monthly_02("0 0 0 2 * ?"),
-    Monthly_03("0 0 0 3 * ?"),
-    Monthly_04("0 0 0 4 * ?"),
-    Monthly_05("0 0 0 5 * ?"),
-    Monthly_06("0 0 0 6 * ?"),
-    Monthly_07("0 0 0 7 * ?"),
-    Monthly_08("0 0 0 8 * ?"),
-    Monthly_09("0 0 0 9 * ?"),
+    Monthly_1("0 0 0 1 * ?"),
+    Monthly_2("0 0 0 2 * ?"),
+    Monthly_3("0 0 0 3 * ?"),
+    Monthly_4("0 0 0 4 * ?"),
+    Monthly_5("0 0 0 5 * ?"),
+    Monthly_6("0 0 0 6 * ?"),
+    Monthly_7("0 0 0 7 * ?"),
+    Monthly_8("0 0 0 8 * ?"),
+    Monthly_9("0 0 0 9 * ?"),
     Monthly_10("0 0 0 10 * ?"),
     Monthly_11("0 0 0 11 * ?"),
     Monthly_12("0 0 0 12 * ?"),
@@ -38,13 +38,13 @@ public enum ReminderType {
     Monthly_31("0 0 0 31 * ?"),
 
     // Weekly types (매주 월~일)
-    Weekly_Mon("0 0 0 ? * MON"),
-    Weekly_Tue("0 0 0 ? * TUE"),
-    Weekly_Wed("0 0 0 ? * WED"),
-    Weekly_Thu("0 0 0 ? * THU"),
-    Weekly_Fri("0 0 0 ? * FRI"),
-    Weekly_Sat("0 0 0 ? * SAT"),
-    Weekly_Sun("0 0 0 ? * SUN"),
+    Weekly_Mon("0 0 0 ? * Mon"),
+    Weekly_Tue("0 0 0 ? * Tue"),
+    Weekly_Wed("0 0 0 ? * Wed"),
+    Weekly_Thu("0 0 0 ? * Thu"),
+    Weekly_Fri("0 0 0 ? * Fri"),
+    Weekly_Sat("0 0 0 ? * Sat"),
+    Weekly_Sun("0 0 0 ? * Sun"),
 
     // Recommended type (망각곡선)
     Recommended("0 0 0 * * ?");  // 매일 실행되며, 로직에서 날짜 차이 계산
