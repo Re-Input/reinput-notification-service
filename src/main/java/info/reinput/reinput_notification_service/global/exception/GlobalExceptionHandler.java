@@ -1,7 +1,6 @@
 package info.reinput.reinput_notification_service.global.exception;
 
 import info.reinput.reinput_notification_service.global.dto.ErrorResponse;
-import info.reinput.reinput_notification_service.notification.exception.DuplicateInsightException;
 import info.reinput.reinput_notification_service.notification.exception.InvalidReminderRequestException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,16 +16,6 @@ import io.swagger.v3.oas.annotations.Hidden;
     basePackageClasses = {ReminderController.class}
 )
 public class GlobalExceptionHandler {
-
-    @Hidden
-    @ExceptionHandler(DuplicateInsightException.class)
-    public ResponseEntity<ErrorResponse> handleDuplicateInsightException(DuplicateInsightException e) {
-        ErrorResponse response = ErrorResponse.builder()
-                .message(e.getMessage())
-                .code("DUPLICATE_INSIGHT")
-                .build();
-        return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
-    }
 
     @Hidden
     @ExceptionHandler(InvalidReminderRequestException.class)

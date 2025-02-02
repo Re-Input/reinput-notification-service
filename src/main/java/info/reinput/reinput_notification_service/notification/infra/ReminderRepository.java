@@ -6,9 +6,12 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
+import java.util.Optional;
 
 public interface ReminderRepository extends JpaRepository<Reminder, Long> {
     boolean existsByInsightId(Long insightId);
+    
+    Optional<Reminder> findByInsightId(Long insightId);
     
     // 모든 reminder의 isToday 플래그를 false로 변경
     @Modifying(clearAutomatically = true)
