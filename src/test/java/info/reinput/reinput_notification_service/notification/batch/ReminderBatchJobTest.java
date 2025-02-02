@@ -24,6 +24,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
+import java.time.ZoneId;
 
 import static org.mockito.Mockito.*;
 
@@ -110,7 +111,7 @@ public class ReminderBatchJobTest {
 
         // static mocking을 통해 LocalDate.now() 반환값을 고정
         try (MockedStatic<LocalDate> mockedLocalDate = Mockito.mockStatic(LocalDate.class, CALLS_REAL_METHODS)) {
-            mockedLocalDate.when(LocalDate::now).thenReturn(fixedDate);
+            mockedLocalDate.when(() -> LocalDate.now(ZoneId.of("Asia/Seoul"))).thenReturn(fixedDate);
 
             // execute() 메서드 실행
             reminderBatchJob.execute(jobExecutionContext);
