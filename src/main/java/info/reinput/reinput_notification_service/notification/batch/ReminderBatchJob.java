@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.TextStyle;
+import java.time.ZoneId;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -38,8 +39,9 @@ public class ReminderBatchJob implements Job {
     public void execute(JobExecutionContext context) throws JobExecutionException {
         log.info("ReminderBatchJob 시작");
 
-        // 오늘 날짜 계산 (시간은 제외)
-        LocalDate today = LocalDate.now();
+        // 한국 시간대 기준으로 날짜 계산
+        ZoneId seoulZone = ZoneId.of("Asia/Seoul");
+        LocalDate today = LocalDate.now(seoulZone);
         
         // 오늘의 Monthly 타입: 예) "Monthly_30"
         String monthlyTypeName = "Monthly_" + today.getDayOfMonth();
