@@ -10,8 +10,8 @@ import info.reinput.reinput_notification_service.notification.presentation.dto.r
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import info.reinput.reinput_notification_service.notification.exception.DuplicateInsightException;
 import info.reinput.reinput_notification_service.notification.exception.InvalidReminderRequestException;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -22,9 +22,14 @@ public class ReminderServiceImpl implements ReminderService {
     @Override
     @Transactional
     public ReminderCreateRes createReminder(ReminderCreateReq request) {
-        // 기존 insightId 검증
-        if (reminderRepository.existsByInsightId(request.getInsightId())) {
-            throw new DuplicateInsightException("이미 해당 Insight에 대한 리마인더가 존재합니다.");
+        // 수정 또는 생성: 동일 insightId가 존재하는 경우 기존 리마인더 및 관련 schedule을 삭제
+        Optional<Reminder> existingReminder = reminderRepository.findByInsightId(request.getInsightId());
+        if (existingReminder.isPresent()) {
+            Reminder reminderToDelete = existingReminder.get();
+            // 관련 ReminderSchedule 모두 삭제
+            reminderScheduleRepository.deleteAllByReminder(reminderToDelete);
+            // 기존 Reminder 삭제
+            reminderRepository.delete(reminderToDelete);
         }
 
         // isActive와 types 유효성 검증
