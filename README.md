@@ -1,2 +1,2 @@
 # reinput-notification-service
-Manages Reminder, Question
+Manages Reminder
