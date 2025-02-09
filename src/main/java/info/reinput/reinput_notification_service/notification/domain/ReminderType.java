@@ -1,8 +1,10 @@
 package info.reinput.reinput_notification_service.notification.domain;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 
 @Getter
+@Schema
 public enum ReminderType {
     // Monthly types (매월 1일 ~ 31일)
     Monthly_1("0 0 0 1 * ?"),
