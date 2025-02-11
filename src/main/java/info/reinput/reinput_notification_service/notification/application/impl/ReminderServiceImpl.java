@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import info.reinput.reinput_notification_service.notification.exception.ReminderNotFoundException;
 import info.reinput.reinput_notification_service.notification.exception.InvalidReminderTypeException;
+import info.reinput.reinput_notification_service.notification.exception.ReminderScheduleDeletionException;
 
 @Service
 @RequiredArgsConstructor
@@ -117,5 +118,28 @@ public class ReminderServiceImpl implements ReminderService {
                 throw new InvalidReminderRequestException("비활성화된 리마인더는 알림 타입을 포함할 수 없습니다.");
             }
         }
+    }
+
+    @Override
+    @Transactional
+    public void deleteReminder(Long insightId) {
+        // insightId로 reminder 조회
+        Reminder reminder = reminderRepository.findByInsightId(insightId)
+            .orElseThrow(() -> new ReminderNotFoundException("해당 insightId에 대한 리마인더를 찾을 수 없습니다: " + insightId));
+        
+        // reminder에 연결된 스케줄 삭제
+        List<ReminderSchedule> associatedSchedules = reminderScheduleRepository.findByReminder(reminder);
+        if (!associatedSchedules.isEmpty()) {
+            reminderScheduleRepository.deleteAllByReminder(reminder);
+            
+            // 스케줄 삭제 후 삭제 여부 확인
+            List<ReminderSchedule> remainingSchedules = reminderScheduleRepository.findByReminder(reminder);
+            if (!remainingSchedules.isEmpty()) {
+                throw new ReminderScheduleDeletionException("리마인더 스케줄 삭제에 실패했습니다.");
+            }
+        }
+        
+        // 스케줄 삭제가 정상적으로 완료되었으면 reminder 삭제
+        reminderRepository.delete(reminder);
     }
 } 

@@ -8,4 +8,6 @@ public interface ReminderService {
     ReminderCreateRes createReminder(ReminderCreateReq request);
     
     ReminderDetailRes getReminderDetail(Long insightId);
+    
+    void deleteReminder(Long insightId);
 } 
