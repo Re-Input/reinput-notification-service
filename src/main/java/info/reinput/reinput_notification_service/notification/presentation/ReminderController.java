@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.PatchMapping;
 
 @Tag(name = "Reminder", description = "리마인더 API")
 @RestController
-@RequestMapping("/api/v1/reminder")
+@RequestMapping("/reminder")
 @RequiredArgsConstructor
 public class ReminderController {
     private final ReminderService reminderService;
@@ -173,7 +173,7 @@ public class ReminderController {
                     )
             }
     )
-    @PatchMapping
+    @PatchMapping("/v2")
     public ResponseEntity<ReminderCreateRes> createReminder(@RequestBody ReminderCreateReq request) {
         ReminderCreateRes response = reminderService.createReminder(request);
         return ResponseEntity.ok(response);
@@ -217,7 +217,7 @@ public class ReminderController {
                     )
             }
     )
-    @GetMapping
+    @GetMapping("/v1")
     public ResponseEntity<ReminderDetailRes> getReminder(@RequestParam("insightId") Long insightId) {
         ReminderDetailRes response = reminderService.getReminderDetail(insightId);
         return ResponseEntity.ok(response);
@@ -249,7 +249,7 @@ public class ReminderController {
                     )
             }
     )
-    @DeleteMapping
+    @DeleteMapping("/v1")
     public ResponseEntity<Void> deleteReminder(@RequestParam("insightId") Long insightId) {
         reminderService.deleteReminder(insightId);
         return ResponseEntity.noContent().build();
