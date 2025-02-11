@@ -222,4 +222,36 @@ public class ReminderController {
         ReminderDetailRes response = reminderService.getReminderDetail(insightId);
         return ResponseEntity.ok(response);
     }
+
+    @Operation(
+            summary = "리마인더 삭제",
+            description = "해당 insightId에 해당하는 리마인더와 연결된 리마인더 스케줄을 삭제합니다. 스케줄 삭제가 성공적인 경우에만 리마인더를 삭제합니다.",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "204",
+                            description = "리마인더 삭제 성공 (No Content)"
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "해당 insightId에 대한 리마인더를 찾을 수 없는 경우",
+                            content = @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = ErrorResponse.class)
+                            )
+                    ),
+                    @ApiResponse(
+                            responseCode = "500",
+                            description = "리마인더 스케줄 삭제 실패 또는 서버 내부 오류",
+                            content = @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = ErrorResponse.class)
+                            )
+                    )
+            }
+    )
+    @DeleteMapping
+    public ResponseEntity<Void> deleteReminder(@RequestParam("insightId") Long insightId) {
+        reminderService.deleteReminder(insightId);
+        return ResponseEntity.noContent().build();
+    }
 } 
