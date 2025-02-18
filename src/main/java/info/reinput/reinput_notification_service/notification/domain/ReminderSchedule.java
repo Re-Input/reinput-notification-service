@@ -23,7 +23,7 @@ public class ReminderSchedule {
     @Enumerated(EnumType.STRING)
     private ReminderType reminderType;
 
-    @Column(name = "created_at", updatable = false)
+    @Column(name = "created_at")
     private LocalDateTime createdAt;
 
     @PrePersist
