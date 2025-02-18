@@ -9,4 +9,7 @@ public interface ReminderScheduleRepository extends JpaRepository<ReminderSchedu
     void deleteAllByReminder(Reminder reminder);
 
     List<ReminderSchedule> findByReminder(Reminder reminder);
+    
+    // 여러 reminder에 속한 모든 ReminderSchedule 조회
+    List<ReminderSchedule> findByReminderIn(List<Reminder> reminders);
 } 
